@@ -11,4 +11,25 @@ async function getAll(req,res){
     }
 }
 
-module.exports = {getAll}
+async function getById(req,res,id){
+    try {
+        let product = await ProductModel.findById(id);
+        console.log(product)
+        
+        if(product){
+            res.writeHead(200,{'content-type': 'application/json'})
+            res.end(JSON.stringify(product))
+            
+        }
+        else{
+            res.writeHead(404,{'content-type': 'application/json'})
+            res.end(JSON.stringify({message : 'not found'}))
+
+        }
+        
+    } catch (error) {
+        
+    }
+}
+
+module.exports = {getAll,getById}
